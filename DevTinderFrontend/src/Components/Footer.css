@@ -1,0 +1,55 @@
+/* src/Components/Footer.css */
+.footer-section {
+  background-color: #343a40; /* Dark background, common for footers */
+  color: #f8f9fa; /* Light text color */
+  padding: 20px 0; /* Adjust padding as needed */
+
+  /* --- Key properties for fixed footer --- */
+   /* Makes the footer fixed relative to the viewport */
+  bottom: 0;       /* Aligns it to the bottom of the viewport */
+  left: 0;         /* Aligns it to the left edge */
+  width: 100%;     /* Makes it span the full width */
+  z-index: 1030;   /* Ensure it's above most other content, Bootstrap's default for navbar is 1030 */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow at the top edge */
+}
+
+.footer-brand {
+  font-family: 'Arial', sans-serif; /* Example font */
+  font-weight: bold;
+  color: #ffffff; /* White color for brand */
+}
+
+.footer-tagline {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.footer-links a {
+  color: #adb5bd; /* Lighter grey for links */
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ffffff; /* White on hover */
+}
+
+.social-icons a {
+  color: #adb5bd; /* Lighter grey for social icons */
+  font-size: 1.2rem;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-icons a:hover {
+  color: #ffffff; /* White on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  color: #ced4da; /* Even lighter grey for copyright text */
+}
+
+.heart-icon {
+  color: #dc3545; /* Red heart icon */
+  margin: 0 5px;
+}

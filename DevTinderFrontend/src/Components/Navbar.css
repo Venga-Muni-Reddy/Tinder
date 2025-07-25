@@ -1,0 +1,91 @@
+/* Navbar.css */
+.profile-pic {
+  width: 40px; /* Adjust as needed */
+  height: 40px; /* Adjust as needed */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  border-radius: 50%; /* Makes it a perfect circle */
+  margin-left: 5px; /* Optional: adjust spacing */
+  border: 1px solid #6c757d; /* Optional: subtle border */
+}
+
+/* Adjust the icon size if using faUserCircle as a fallback */
+.profile-icon-fallback {
+  font-size: 2em; /* Adjust size */
+  color: #fff; /* White color for dark navbar */
+  margin-left: 5px;
+}
+
+
+
+/* General Body Styles (optional, for overall page look) */
+body {
+    font-family: 'Poppins', sans-serif; /* You might need to import Poppins in index.html or here */
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* Navbar Container - Custom adjustments */
+.devtinder-navbar {
+    background-color: #283e4a !important; /* Use !important to override Bootstrap's default */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Navbar Brand - Logo and Text */
+.devtinder-navbar .navbar-brand {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #ffffff !important;
+}
+
+.devtinder-navbar .logo-wrapper {
+    background-color: #007bff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+}
+
+.devtinder-navbar .developer-icon {
+    color: #ffffff;
+    font-size: 24px;
+}
+
+/* Profile Picture in NavDropdown */
+.devtinder-navbar .profile-pic {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border: 2px solid #007bff;
+    transition: border-color 0.3s ease;
+}
+
+.devtinder-navbar .profile-pic:hover {
+    border-color: #ffffff;
+}
+
+/* Dropdown menu styling (Bootstrap handles most of this, but you can override) */
+.devtinder-navbar .dropdown-menu {
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden;
+    margin-top: 10px; /* Space between profile icon and dropdown */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 0; /* Ensures it aligns to the right */
+    left: auto; /* Override default left alignment if any */
+}
+
+.devtinder-navbar .dropdown-item {
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.devtinder-navbar .dropdown-item:hover {
+    background-color: #f1f1f1;
+    color: #007bff;
+}
+
+/* FontAwesome import for icons (if you didn't do it globally) */
+/* You'll need to install it: npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome */
+/* If you want Google Fonts, link them in public/index.html or import with @import url in CSS */

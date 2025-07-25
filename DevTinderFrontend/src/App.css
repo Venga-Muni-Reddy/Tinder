@@ -1,0 +1,18 @@
+/* src/index.css or App.css */
+html, body, #root {
+  height: 100%; /* Important: html, body, and your root div must fill the viewport */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex; /* Makes body a flex container */
+  flex-direction: column; /* Stacks its children vertically */
+}
+
+/* Optional, but good practice if #root is direct child of body */
+#root {
+  flex-grow: 1; /* Allows #root to grow and fill available space */
+  display: flex; /* Makes #root a flex container */
+  flex-direction: column; /* Stacks its children vertically */
+}

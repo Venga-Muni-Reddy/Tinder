@@ -1,0 +1,57 @@
+/* src/pages/Feed.css */
+
+.feed-card {
+  border-radius: 15px !important; /* Slightly rounded corners */
+  overflow: hidden; /* Ensures image corners match card */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important; /* Stronger shadow */
+  transition: transform 0.3s ease-in-out; /* Smooth transition for potential future animations */
+}
+
+/* Optional: Add a subtle hover effect if desired */
+.feed-card:hover {
+  transform: translateY(-5px);
+}
+
+.feed-card .card-img-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.feed-card .card-body {
+  padding: 1.5rem;
+}
+
+.feed-card .card-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.feed-card .card-subtitle {
+  font-size: 1.1rem;
+}
+
+.feed-card .card-text {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Style for the round action buttons */
+.feed-card .btn.rounded-circle {
+  border: none;
+  font-size: 1.8rem; /* Make icons larger */
+  display: flex; /* For centering content */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Add subtle shadow to buttons */
+}
+
+.feed-card .btn.rounded-circle:active {
+  transform: scale(0.95); /* Little press effect */
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 576px) {
+  .feed-card-wrapper {
+    max-width: 90% !important; /* Allow card to take more width on small screens */
+  }
+}

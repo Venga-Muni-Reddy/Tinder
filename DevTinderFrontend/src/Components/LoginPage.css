@@ -1,0 +1,163 @@
+/* src/Components/LoginPage.css */
+
+/* Background for the entire page */
+.login-page-wrapper {
+  background: linear-gradient(to right, #6a11cb, #2575fc); /* A more vibrant gradient */
+  min-height: 100vh; /* Ensure it takes full viewport height */
+  display: flex; /* Use flexbox for easy centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  overflow: hidden; /* Hide any overflow from background effects */
+  position: relative; /* Needed for ::before pseudo-element */
+  z-index: 1; /* Ensure wrapper is below the card's z-index if card has one */
+}
+
+/* Optional: Subtle background pattern or animation */
+.login-page-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://www.transparenttextures.com/patterns/cubes.png') repeat; /* Example subtle texture */
+  opacity: 0.05; /* Very subtle opacity */
+  z-index: 0; /* Behind the content */
+}
+
+/* Styling for the login card itself */
+.login-card {
+  background-color: rgba(255, 255, 255, 0.98); /* Slightly transparent white card */
+  border-radius: 20px; /* More rounded corners */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Deeper, more prominent shadow */
+  padding: 3rem; /* More internal padding for a spacious feel */
+  animation: fadeIn 1s ease-out; /* Slower, smoother fade-in animation */
+  position: relative; /* For z-index to be effective */
+  z-index: 10; /* Ensure the card is above the background effect */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styling for the "Welcome Back!" heading */
+h2 {
+  font-weight: 700; /* Bolder text for impact */
+  color: #333; /* Darker color for good contrast */
+}
+
+/* General adjustments for floating labels on Bootstrap forms */
+.form-floating > .form-control,
+.form-floating > .form-select {
+  height: calc(3.5rem + 2px); /* Standard height for floating labels */
+  line-height: 1.25;
+  padding: 1rem 0.75rem;
+}
+
+.form-floating > label {
+  padding: 1rem 0.75rem;
+}
+
+/* Animation and color for floating labels when focused or filled */
+.form-floating .form-control:focus ~ label,
+.form-floating .form-control:not(:placeholder-shown) ~ label {
+  transform: scale(0.85) translateY(-0.8rem) translateX(0.15rem); /* Adjust label position */
+  color: #6a11cb; /* Theme color for active label */
+  opacity: 0.8;
+}
+
+/* Customizing the password input group for floating label behavior */
+/* The parent .form-floating handles the label positioning */
+.form-floating .input-group {
+  /* This ensures the input group itself doesn't break the floating label's context */
+  position: relative;
+}
+
+.form-floating .input-group .form-control {
+  /* Ensure proper rounded corners for the input within the group */
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: 1; /* Ensures the input is above the label */
+}
+
+/* Correct positioning and behavior for the label inside a floating input group */
+.form-floating .input-group > .form-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1rem 0.75rem;
+  pointer-events: none;
+  border: 1px solid transparent;
+  transform-origin: 0 0;
+  transition: opacity .15s ease-in-out, transform .15s ease-in-out;
+  z-index: 0; /* Below the input control */
+  width: calc(100% - 40px); /* Adjust width to not overlap the eye button */
+  overflow: hidden; /* Hide overflowing text */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Specific transform for the label inside the InputGroup when focused/filled */
+.form-floating .input-group > .form-control:focus ~ .form-label,
+.form-floating .input-group > .form-control:not(:placeholder-shown) ~ .form-label {
+  transform: scale(0.85) translateY(-0.8rem) translateX(0.15rem);
+  color: #6a11cb;
+  opacity: 0.8;
+}
+
+
+/* Styling for the password toggle button within the input group */
+.btn-password-toggle {
+  height: calc(3.5rem + 2px); /* Match input height for consistency */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0.75rem;
+  z-index: 2; /* Ensure the button is clickable and above other elements */
+}
+
+
+/* Custom focus ring for form controls */
+.form-control:focus {
+  border-color: #6a11cb; /* Theme color for focus border */
+  box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25); /* Theme color focus glow */
+}
+
+/* Optional: Animation for invalid input fields */
+.form-control.is-invalid {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0); /* Optimize for hardware acceleration */
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Styling for the primary login button */
+.btn-primary {
+  background-color: #6a11cb; /* Theme color for the button */
+  border-color: #6a11cb;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.btn-primary:hover {
+  background-color: #2575fc; /* Change color on hover */
+  border-color: #2575fc;
+  transform: translateY(-2px); /* Subtle lift effect on hover */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+/* Custom styling for the "Remember me" switch */
+.form-check-input:checked {
+  background-color: #6a11cb; /* Theme color when checked */
+  border-color: #6a11cb;
+}

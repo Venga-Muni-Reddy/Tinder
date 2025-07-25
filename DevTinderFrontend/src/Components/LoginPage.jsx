@@ -5,7 +5,7 @@ import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons'; // Make sure you'
 import './LoginPage.css'; // Importing the dedicated CSS file
 import { useDispatch } from 'react-redux';
 import { addUser } from '../redux/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

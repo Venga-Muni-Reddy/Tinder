@@ -115,7 +115,7 @@ const LoginPage = () => {
                 </Button>
 
                 <div className="text-center mt-3">
-                  Don't have an account? <a href="#" className="text-decoration-none">Sign Up</a>
+                  Don't have an account? <Link to="/signup" className="text-decoration-none">Sign Up</Link>
                 </div>
 
                 {/* Optional: Social Login Buttons */}

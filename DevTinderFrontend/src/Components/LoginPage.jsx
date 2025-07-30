@@ -5,6 +5,7 @@ import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons'; // Make sure you've installed 'react-bootstrap-icons'
 import './LoginPage.css'; // Importing the dedicated CSS file
 import { useDispatch } from 'react-redux';
+
 import { addUser } from '../redux/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 

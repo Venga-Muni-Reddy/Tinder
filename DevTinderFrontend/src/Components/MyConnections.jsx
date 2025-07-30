@@ -1,6 +1,7 @@
 // src/pages/MyConnections.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import { VITE_BASE_URL } from '../config';
 import axios from 'axios';
 import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
 // import './MyConnections.css'; // Optional custom CSS
@@ -22,7 +23,7 @@ const MyConnections = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/connections`, { withCredentials: true });
+      const res = await axios.get(`${VITE_BASE_URL}/user/connections`, { withCredentials: true });
       // The backend should send an array of user objects that are connected
       setConnections(res.data);
     } catch (err) {

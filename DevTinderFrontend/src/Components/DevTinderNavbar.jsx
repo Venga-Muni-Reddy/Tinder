@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, NavDropdown, Image, Spinner } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { VITE_BASE_URL } from '../constants/config';
+import { VITE_BASE_URL } from '../config';
 import { faLaptopCode, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUser, addUser } from '../redux/userSlice'; // Ensure this path is correct

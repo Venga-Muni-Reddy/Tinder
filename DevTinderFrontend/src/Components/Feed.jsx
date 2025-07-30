@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { VITE_BASE_URL } from '../constants/config';
+import { VITE_BASE_URL } from '../config';
 import { Container, Card, Button, Spinner, Alert } from 'react-bootstrap'; // Removed Row, Col as we're showing one card
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';

@@ -1,5 +1,5 @@
 import Navbar from './DevTinderNavbar';
-import { VITE_BASE_URL } from '../constants/config';
+import { VITE_BASE_URL } from '../config';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import { useDispatch } from 'react-redux'; // Keep useDispatch

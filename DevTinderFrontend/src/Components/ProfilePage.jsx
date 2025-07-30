@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { VITE_BASE_URL } from '../constants/config';
+import { VITE_BASE_URL } from '../config';
 import { Form, Button, Container, Row, Col, Image, Spinner, Alert, Toast, ToastContainer } from 'react-bootstrap';
 import axios from 'axios';
 import { addUser } from '../redux/userSlice'; // To update user after edit

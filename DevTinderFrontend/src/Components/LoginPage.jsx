@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { VITE_BASE_URL } from '../constants/config';
+import { VITE_BASE_URL } from '../config';
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons'; // Make sure you've installed 'react-bootstrap-icons'
 import './LoginPage.css'; // Importing the dedicated CSS file

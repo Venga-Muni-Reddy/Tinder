@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { VITE_BASE_URL } from '../constants/config';
 import { Container, Card, Button, Spinner, Alert } from 'react-bootstrap'; // Removed Row, Col as we're showing one card
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -29,7 +30,7 @@ const Feed = () => {
 
     try {
       // Fetch more users, e.g., 5-10 at a time to keep a buffer
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/feed?page=${pageToFetch}&limit=10`, { withCredentials: true });
+      const res = await axios.get(`${VITE_BASE_URL}/users/feed?page=${pageToFetch}&limit=10`, { withCredentials: true });
       const newUsers = res.data;
       
       if (newUsers && newUsers.length > 0) {
@@ -71,7 +72,7 @@ const Feed = () => {
     setError(null);
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/request/send/${status}/${toUserId}`, {}, { withCredentials: true });
+      const res = await axios.post(`${VITE_BASE_URL}/request/send/${status}/${toUserId}`, {}, { withCredentials: true });
       console.log(`Request ${status} sent:`, res.data);
       
       // Remove the current user from the front of the array

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { VITE_BASE_URL } from '../constants/config';
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons'; // Make sure you've installed 'react-bootstrap-icons'
 import './LoginPage.css'; // Importing the dedicated CSS file
@@ -32,7 +33,7 @@ const LoginPage = () => {
 
     if (validateForm()) {
       try {
-        const user = await axios.post(`${import.meta.env.VITE_BASE_URL}/login`, { emailID: email, password: password },{withCredentials:true});
+        const user = await axios.post(`${VITE_BASE_URL}/login`, { emailID: email, password: password },{withCredentials:true});
         console.log("Login successful:", user.data);
         dispatch(addUser(user.data))
         // Here you would typically redirect the user or update application state

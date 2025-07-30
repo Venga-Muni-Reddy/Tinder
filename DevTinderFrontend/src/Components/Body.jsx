@@ -1,4 +1,5 @@
 import Navbar from './DevTinderNavbar';
+import { VITE_BASE_URL } from '../constants/config';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import { useDispatch } from 'react-redux'; // Keep useDispatch
@@ -13,7 +14,7 @@ const Body = () => {
 
   const fetchUser = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/profile/view`, { withCredentials: true });
+      const res = await axios.get(`${VITE_BASE_URL}/profile/view`, { withCredentials: true });
       console.log(res.data)
       dispatch(addUser(res.data));
     } catch (err) {

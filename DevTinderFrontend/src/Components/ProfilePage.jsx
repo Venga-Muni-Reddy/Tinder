@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { VITE_BASE_URL } from '../constants/config';
 import { Form, Button, Container, Row, Col, Image, Spinner, Alert, Toast, ToastContainer } from 'react-bootstrap';
 import axios from 'axios';
 import { addUser } from '../redux/userSlice'; // To update user after edit
@@ -59,7 +60,7 @@ const ProfilePage = () => {
       }
       dataToSend.age = dataToSend.age ? Number(dataToSend.age) : undefined;
 
-      const res = await axios.patch(`${import.meta.env.VITE_BASE_URL}/profile/edit`, dataToSend, { withCredentials: true });
+      const res = await axios.patch(`${VITE_BASE_URL}/profile/edit`, dataToSend, { withCredentials: true });
       
       const message = res.data.message || "Profile updated successfully!";
       setSuccess(message); // Optional: if you still want the Bootstrap Alert

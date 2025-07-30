@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, NavDropdown, Image, Spinner } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { VITE_BASE_URL } from '../constants/config';
 import { faLaptopCode, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeUser, addUser } from '../redux/userSlice'; // Ensure this path is correct
@@ -40,7 +41,7 @@ function DevTinderNavbar() {
   const handleLogout = async () => {
     try {
       // 1. Call your backend logout API
-      const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/logout`, {}, { withCredentials: true });
+      const res = await axios.post(`${VITE_BASE_URL}/logout`, {}, { withCredentials: true });
       console.log("Logout successful on backend:", res.data.message);
 
       // 2. Clear user details from the Redux store

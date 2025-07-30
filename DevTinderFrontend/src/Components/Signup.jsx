@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Card, Alert, Spinner, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import { VITE_BASE_URL } from '../constants/config';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faInfoCircle, faCodeBranch, faEnvelope, faLock, faIdCard, faBirthdayCake, faVenusMars, faCameraRetro, faBook } from '@fortawesome/free-solid-svg-icons';
@@ -68,7 +69,7 @@ const Signup = () => {
         skills: formData.skills ? formData.skills.split(',').map(s => s.trim()).filter(s => s.length > 0) : [],
       };
 
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/signup`, payload);
+      const response = await axios.post(`${VITE_BASE_URL}/signup`, payload);
 
       setSuccess(response.data.message || 'Signup successful! Redirecting to login...');
       // Clear form data after successful signup

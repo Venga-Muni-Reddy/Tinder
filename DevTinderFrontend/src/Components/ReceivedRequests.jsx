@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { VITE_BASE_URL } from '../constants/config';
 import { Container, Row, Col, Card, Button, Spinner, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -24,7 +25,7 @@ const ReceivedRequests = () => {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/request/received`, { withCredentials: true });
+            const res = await axios.get(`${VITE_BASE_URL}/user/request/received`, { withCredentials: true });
             setRequests(res.data);
         } catch (err) {
             console.error("Error fetching received requests:", err.response?.data?.message || err.message);
@@ -46,7 +47,7 @@ const ReceivedRequests = () => {
         setError(null);
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/request/review/${status}/${requestId}`, {}, { withCredentials: true });
+            const res = await axios.post(`${VITE_BASE_URL}/request/review/${status}/${requestId}`, {}, { withCredentials: true });
             console.log(`Request ${requestId} ${status}d:`, res.data);
             setRequests((prevRequests) => prevRequests.filter((req) => req._id !== requestId));
         } catch (err) {

@@ -25,7 +25,9 @@ app.use("/",userRouter)
 connectDB().
     then(
         ()=>{
+            
             app.listen(3333,()=>{
+
             })
         }
     ).catch((err)=>{

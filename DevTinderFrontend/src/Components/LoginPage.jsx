@@ -38,7 +38,7 @@ const LoginPage = () => {
         console.log("Login successful:", user.data);
         dispatch(addUser(user.data))
         // Here you would typically redirect the user or update application state
-        alert('Login attempt successful! Check console for response.');
+        
         navigate('/body/feed')
       } catch (error) {
         console.error("Login failed:", error.response ? error.response.data : error.message);

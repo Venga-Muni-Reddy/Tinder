@@ -8,6 +8,7 @@ const requestRouter = require('./routes/request')
 const userRouter = require('./routes/user')
 const cors = require('cors')
 
+app.set('trust proxy',1)
 app.use(express.json()) //app.use("/",(req,res,next)=>{express.json() next()})
 app.use(cookieParser())
 app.use(cors(
@@ -26,7 +27,7 @@ connectDB().
     then(
         ()=>{
             
-            app.listen(3333,()=>{
+            app.listen(process.env.PORT||3333,()=>{
 
             })
         }

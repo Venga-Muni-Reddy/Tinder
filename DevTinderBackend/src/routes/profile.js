@@ -9,7 +9,7 @@ profileRouter.get("/profile/view", auth, (req, res) => {
     // and send it as JSON.
     if (req.user) {
         // IMPORTANT: Send the user object as JSON, not a string
-        res.status(200).json(req.user); // Send the user object directly
+        const safe=req.user.toObject();delete safe.password;res.status(200).json(safe); // Send the user object directly
     } else {
         // This case should ideally be handled by the 'auth' middleware
         // returning a 401 Unauthorized, but as a fallback:

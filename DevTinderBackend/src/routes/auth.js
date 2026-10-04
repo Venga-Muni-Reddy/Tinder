@@ -22,7 +22,7 @@ authRouter.post("/signup", async (req, res) => {
             photoUrl
         });
         await user.save();
-        res.status(201).json({ message: "Signup successful!", data: user }); // Consistent JSON response
+        const safe=user.toObject();delete safe.password;res.status(201).json({ message: "Signup successful!", data: safe }); // Consistent JSON response
     } catch (error) {
         console.error("Signup error:", error); // Log the detailed error on the server
         // IMPORTANT: Send error as JSON
@@ -39,14 +39,14 @@ authRouter.post("/login",async (req,res)=>{
             throw new Error("Invalid credentials")
         }
             
-        const isPasswordValid = bcrypt.compare(password,user.password)
+        const isPasswordValid = await bcrypt.compare(password,user.password)
         if(!isPasswordValid){
             throw new Error("Invalid credentials")
         }
         const token = await user.getJWT()
-        res.cookie("token",token,{expires:new Date(Date.now()+8*3600000)})
+        res.cookie("token",token,{expires:new Date(Date.now()+8*3600000),httpOnly:true,secure:true,sameSite:"none"})
             
-        res.status(200).send(user)
+        const safe=user.toObject();delete safe.password;res.status(200).send(safe)
     }catch(error){
         res.status(400).send("Error :"+error.message)
     }
@@ -54,7 +54,7 @@ authRouter.post("/login",async (req,res)=>{
 
 //Logout
 authRouter.post("/logout",(req,res)=>{
-    res.cookie("token",null,{expiresIn:new Date(Date.now())})
+    res.cookie("token",null,{expires:new Date(0),httpOnly:true,secure:true,sameSite:"none"})
     res.status(200).json({
         message:"Logout successfull!!"
     })

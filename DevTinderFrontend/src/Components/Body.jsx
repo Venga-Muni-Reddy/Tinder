@@ -1,52 +1,51 @@
 import Navbar from './DevTinderNavbar';
+import Footer from './Footer';
 import { VITE_BASE_URL } from '../config';
 import { Outlet, useNavigate } from 'react-router-dom';
-import Footer from './Footer';
-import { useDispatch } from 'react-redux'; // Keep useDispatch
-import { useEffect } from 'react'; // Keep useEffect
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import axios from 'axios';
-import { addUser,removeUser } from '../redux/userSlice'; // Ensure this path is correct
-// import './Body.css'; // Uncomment if you have this CSS file
+import { addUser, removeUser } from '../redux/userSlice';
+import { initSocket, disconnectSocket } from '../socket';
 
 const Body = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const fetchUser = async () => {
-    try {
-      const res = await axios.get(`${VITE_BASE_URL}/profile/view`, { withCredentials: true });
-      console.log(res.data)
-      dispatch(addUser(res.data));
-    } catch (err) {
-      console.error("Error fetching user profile:", err);
-      // If there's an error (e.g., not logged in), navigate to login
-      dispatch(removeUser()); // Explicitly set user to null in Redux on error
-      navigate('/body/login'); 
-    }
-  };
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    // This effect will run once when the Body component mounts
-    // This means it will run every time the page refreshes.
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(`${VITE_BASE_URL}/profile/view`, { withCredentials: true });
+        dispatch(addUser(res.data));
+      } catch (err) {
+        dispatch(removeUser());
+        disconnectSocket();
+        navigate('/body/login');
+      }
+    };
     fetchUser();
-  }, []); // Empty dependency array means this runs only once on component mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Open the realtime channel once the user is known; close it on logout.
+  useEffect(() => {
+    if (user) {
+      initSocket();
+    } else {
+      disconnectSocket();
+    }
+  }, [user]);
 
   return (
-    // 'body-wrapper' will be our flex container
-    <div className="body-wrapper">
+    <div className="shell">
       <Navbar />
-      {/* 'main-content' will take up available space, pushing footer down */}
-      <div className="main-content">
+      <main className="shell-main">
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </div>
   );
 };
 
 export default Body;
-
-//While refreshing data will not be erased 
-//logout feature
-//EditProfile feature
-//feed feature [use feedSlice]

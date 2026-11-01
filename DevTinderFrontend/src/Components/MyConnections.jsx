@@ -1,14 +1,15 @@
-// src/pages/MyConnections.jsx
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { VITE_BASE_URL } from '../config';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Row, Col, Card, Spinner, Alert } from 'react-bootstrap';
-// import './MyConnections.css'; // Optional custom CSS
+import { VITE_BASE_URL } from '../config';
+
+const getInitials = (firstName, lastName) =>
+  `${firstName ? firstName.charAt(0) : ''}${lastName ? lastName.charAt(0) : ''}`.toUpperCase();
 
 const MyConnections = () => {
   const loggedInUser = useSelector((state) => state.user);
-
+  const navigate = useNavigate();
   const [connections, setConnections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,19 +17,15 @@ const MyConnections = () => {
   const fetchConnections = useCallback(async () => {
     if (!loggedInUser) {
       setLoading(false);
-      setError("Please log in to view your connections.");
       return;
     }
-
     setLoading(true);
     setError(null);
     try {
       const res = await axios.get(`${VITE_BASE_URL}/user/connections`, { withCredentials: true });
-      // The backend should send an array of user objects that are connected
       setConnections(res.data);
     } catch (err) {
-      console.error("Error fetching connections:", err.response?.data?.message || err.message);
-      setError(err.response?.data?.message || "Failed to load connections.");
+      setError(err.response?.data?.message || 'Failed to load connections.');
     } finally {
       setLoading(false);
     }
@@ -38,86 +35,48 @@ const MyConnections = () => {
     fetchConnections();
   }, [fetchConnections]);
 
-  const getInitials = (firstName, lastName) => {
-    return `${firstName ? firstName.charAt(0) : ''}${lastName ? lastName.charAt(0) : ''}`.toUpperCase();
-  };
-
-  if (!loggedInUser) {
-    return (
-      <Container className="my-5 text-center">
-        <Alert variant="info">Please log in to view your connections.</Alert>
-      </Container>
-    );
-  }
-
-  if (loading) {
-    return (
-      <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: 'calc(100vh - 120px)' }}>
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading Connections...</span>
-        </Spinner>
-      </Container>
-    );
-  }
+  if (loading) return <div className="spinner" />;
 
   return (
-    <Container className="my-5">
-      <h2 className="text-center mb-4">My Dev Connections</h2>
+    <div>
+      <h2 className="page-title">My connections</h2>
+      <p className="page-subtitle">Developers you matched with. Open a chat and start building something together.</p>
 
-      {error && <Alert variant="danger">{error}</Alert>}
+      {error && <div className="alert alert-error">{error}</div>}
 
-      {connections.length === 0 && !loading && !error && (
-        <Alert variant="info" className="text-center">
-          You don't have any accepted connections yet. Get swiping!
-        </Alert>
-      )}
-
-      <Row xs={1} md={2} lg={3} className="g-4 justify-content-center">
-        {connections.map((connectedUser) => (
-          <Col key={connectedUser._id}>
-            <Card className="h-100 shadow-sm border-0">
-              {connectedUser.photoUrl ? (
-                <Card.Img 
-                  variant="top" 
-                  src={connectedUser.photoUrl} 
-                  alt={`${connectedUser.firstName} ${connectedUser.lastName}`} 
-                  style={{ height: '200px', objectFit: 'cover' }}
-                />
-              ) : (
-                <div 
-                  className="bg-secondary text-white d-flex justify-content-center align-items-center" 
-                  style={{ height: '200px', fontSize: '3rem' }}
-                >
-                  {getInitials(connectedUser.firstName, connectedUser.lastName)}
+      {connections.length === 0 && !error ? (
+        <div className="empty-state">
+          <div className="empty-icon">&lt;/&gt;</div>
+          <p>No connections yet. Like a profile in the feed and get liked back to connect.</p>
+        </div>
+      ) : (
+        <div className="people-grid">
+          {connections.map((u) => (
+            <div className="card person-card" key={u._id}>
+              <div className="person-photo">
+                {u.photoUrl ? (
+                  <img src={u.photoUrl} alt={`${u.firstName} ${u.lastName}`} />
+                ) : (
+                  <div className="photo-fallback">{getInitials(u.firstName, u.lastName)}</div>
+                )}
+              </div>
+              <div className="person-body">
+                <h3 className="person-name">{u.firstName} {u.lastName}{u.age ? `, ${u.age}` : ''}</h3>
+                {u.skills && u.skills.length > 0 && (
+                  <div>{u.skills.slice(0, 5).map((s) => <span className="chip" key={s}>{s}</span>)}</div>
+                )}
+                {u.about && <p className="person-about">{u.about}</p>}
+                <div className="person-actions">
+                  <button className="btn btn-chat btn-sm" onClick={() => navigate(`/body/chat/${u._id}`)}>
+                    Chat
+                  </button>
                 </div>
-              )}
-              <Card.Body className="d-flex flex-column">
-                <Card.Title className="mb-1">
-                  {connectedUser.firstName} {connectedUser.lastName}, {connectedUser.age}
-                </Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {connectedUser.gender}
-                </Card.Subtitle>
-                {connectedUser.skills && connectedUser.skills.length > 0 && (
-                  <Card.Text>
-                    <strong>Skills:</strong> {connectedUser.skills.join(', ')}
-                  </Card.Text>
-                )}
-                {connectedUser.about && (
-                  <Card.Text className="text-truncate" style={{ maxHeight: '3em' }}>
-                    {connectedUser.about}
-                  </Card.Text>
-                )}
-                {/* You might add a "View Profile" or "Message" button here */}
-                {/* <div className="mt-auto text-center pt-3">
-                  <Button variant="outline-primary" size="sm">View Profile</Button>
-                </div> */}
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

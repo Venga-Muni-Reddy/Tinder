@@ -76,7 +76,7 @@ userRouter.get("/users/feed", auth, async (req, res) => {
             // No need for $ne:loggedInUser._id if hiddenUsers already includes it.
             _id: { $nin: Array.from(hiddenUsers) }
         })
-        .select("_id firstName lastName profileUrl age gender about skills email") // Added email as it's often a primary identifier
+        .select("_id firstName lastName photoUrl age gender about skills email") // Added email as it's often a primary identifier
         .skip(skip)
         .limit(limit);
 
